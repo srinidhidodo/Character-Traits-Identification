@@ -6,7 +6,7 @@ Created on Mon Jan 22 11:00:01 2018
 @author: srinidhi
 """
 import csv
-import nltk
+#import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
@@ -30,9 +30,18 @@ for k in ss:
     print(type(k),type(ss[k]))
 print()
 '''
+
+infjFile = open('esfp.csv', 'w', newline='') #enfp, enfj, esfp
+writer = csv.writer(infjFile, delimiter=' ',quotechar='|', quoting=csv.QUOTE_MINIMAL)
+
 for j in fil[1:]:
     i = j[1]
-    #ss = sentAn.polarity_scores(i)
+    ss = sentAn.polarity_scores(i)
+    sst = [str(x) for x in list(ss.values())]
+    
+    if j[0] == 'ESFP':
+        writer.writerow(','.join(sst))
+    
     temp = i.split('|||')
     if j[0] not in train:
         train[j[0]] = {}
@@ -41,8 +50,8 @@ for j in fil[1:]:
         #sentAnScores[j[0]] = ss
     else:
         count[j[0]] += len(temp)
-        #for k in ss:
-        #    sentAnScores[j[0]][k] += ss[k]
+       # for k in ss:
+       #     sentAnScores[j[0]][k] += ss[k]
     #print(list(tknzr.tokenize(x) for x in temp))
     #tempD = {}
     for x in temp:
@@ -56,7 +65,7 @@ for j in fil[1:]:
                 stopWordsFreq[j[0]][z] = 1 if z not in stopWordsFreq[j[0]] else stopWordsFreq[j[0]][z]+1
 
 for i in stopWordsFreq:
-    print(i,count[i])
+    #print(i,count[i])
     #print('Sentiments: neg={0}, neu={1}, pos={2}, compound={3}'.format(sentAnScores[i]['neg']/count[i],sentAnScores[i]['neu']/count[i],sentAnScores[i]['pos']/count[i],sentAnScores[i]['compound']/count[i]))
     '''
     if 'should' in stopWordsFreq[i]:
@@ -70,6 +79,7 @@ for i in stopWordsFreq:
     if 'shall' in train[i]:
         print('shall:',train[i]['shall']/count[i])'''
     #print('')
+    pass
     
 
 '''
