@@ -39,24 +39,23 @@ for j in fil[1:8000]:
     if j[0] not in textTrack:
         textTrack[j[0]] = []
     for x in temp:
-        if j[0] == 'INFP':
-            textTrack[j[0]].append(list(tknzr.tokenize(x)))
+        #if j[0] == 'INTP':
+        textTrack[j[0]].append(list(tknzr.tokenize(x)))
 
 #t1 = Word2Vec(textTrack['INFJ'], min_count = 1)
 #t2 = Word2Vec(textTrack['ENFJ'].sents())
-#for i in textTrack:
-i='INFP'
-model = Word2Vec(textTrack[i], min_count = 1)
-words = list(model.wv.vocab)
-print(words)
-result = model.most_similar(negative=['should'])#,topn=20)
-print(result)
-print('')
-result = model.most_similar(negative=['i'])#,topn=20)
-print(result)
-print('')
-result = model.most_similar(negative=['think'],topn=20)
-print(result)
+for i in textTrack:
+    model = Word2Vec(textTrack[i], min_count = 1)
+    words = list(model.wv.vocab)
+    print(i)
+    result = model.most_similar(positive=['should'])#,topn=20)
+    print(result)
+    print('')
+    result = model.most_similar(positive=['i'])#,topn=20)
+    print(result)
+    print('')
+    result = model.most_similar(positive=['think'])#,topn=20)
+    print(result)
 #    print(t1.most_similar('should'))
 #    print(t1.most_similar('i'))
 
